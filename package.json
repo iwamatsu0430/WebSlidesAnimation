@@ -8,7 +8,9 @@
   },
   "main": "webslides-animation.js",
   "keywords": [
-    "WebSlides"
+    "webslides",
+    "presentation",
+    "css"
   ],
   "author": "iwamatsu0430",
   "license": "MIT"
