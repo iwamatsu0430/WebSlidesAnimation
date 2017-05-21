@@ -1,0 +1,100 @@
+.animate-show {
+  display: none !important;
+}
+.animate-show.animated {
+  display: inherit !important;
+}
+
+.animate-show-visibility {
+  opacity: 0 !important;
+  visibility: hidden;
+}
+.animate-show-visibility.animated {
+  opacity: 1 !important;
+  visibility: visible;
+}
+
+.animate-hide {
+  display: inherit !important;
+}
+.animate-hide.animated {
+  display: none !important;
+}
+
+.animate-hide-visibility {
+  opacity: 1 !important;
+}
+.animate-hide-visibility.animated {
+  opacity: 0 !important;
+}
+
+.example-block {
+  width: 100px;
+  height: 100px;
+  transition: all 500ms ease;
+}
+.example-block.red {
+  background: #c23;
+}
+.example-block.green {
+  background: #077;
+}
+.example-block.blue {
+  background: #346;
+}
+.example-block.purple {
+  background: #62b;
+}
+
+
+.go-right {
+  position: relative;
+  left: 0;
+}
+.go-right.animated {
+  left: calc(100% - 100px);
+}
+
+.go-left {
+  position: relative;
+  left: calc(100% - 100px);
+}
+.go-left.animated {
+  left: 0;
+}
+
+.go-bottom {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  top: 0;
+}
+.go-bottom.animated {
+  top: 100px;
+}
+
+.go-top {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  top: 0;
+}
+.go-top.animated {
+  top: -100px;
+}
+
+@keyframes rolling {
+  from {
+    transform: rotateZ(0deg);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
+}
+
+.circular {
+  margin-top: 30px;
+}
+.circular.animated {
+  animation: rolling 1s infinite linear;
+}

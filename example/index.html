@@ -1,0 +1,152 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WebSlides Animation Example</title>
+  <link rel="stylesheet" type='text/css' media='all' href="./assets/css/base.css">
+  <link rel="stylesheet" type='text/css' media='all' href="./assets/css/colors.css">
+  <link rel="stylesheet" type='text/css' media='all' href="./assets/css/svg-icons.css">
+  <link rel="stylesheet" type='text/css' media='all' href="./assets/css/style.css">
+</head>
+
+<body>
+
+<main role="main">
+  <article id="webslides" class="horizontal">
+
+    <section>
+      <span class="background"></span>
+      <div class="wrap aligncenter">
+        <h1><strong>WebSlides Animation Example</strong></h1>
+        <p class="text-intro">
+          <a href="https://github.com/iwamatsu0430" target="_blank">@iwamatsu0430</a>
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <span data-step-count=3></span>
+      <span class="background"></span>
+      <header>
+        <h1 class="aligncenter">Show animation</h1>
+      </header>
+      <div class="wrap">
+        <ul class="flexblock">
+          <li class="animate-show" data-step=1>
+            <p class="aligncenter">FOO</p>
+          </li>
+          <li class="animate-show" data-step=2>
+            <p class="aligncenter">BAR</p>
+          </li>
+          <li class="animate-show" data-step=3>
+            <p class="aligncenter">BAZ</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <span data-step-count=3></span>
+      <span class="background"></span>
+      <header>
+        <h1 class="aligncenter">Hide animation</h1>
+      </header>
+      <div class="wrap">
+        <ul class="flexblock">
+          <li class="animate-hide" data-step=1>
+            <p class="aligncenter">FOO</p>
+          </li>
+          <li class="animate-hide" data-step=2>
+            <p class="aligncenter">BAR</p>
+          </li>
+          <li class="animate-hide" data-step=3>
+            <p class="aligncenter">BAZ</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <span data-step-count=3></span>
+      <span class="background"></span>
+      <header>
+        <h1 class="aligncenter">Show animation with keep position</h1>
+      </header>
+      <div class="wrap">
+        <ul class="flexblock">
+          <li class="animate-show-visibility" data-step=1>
+            <p class="aligncenter">FOO</p>
+          </li>
+          <li class="animate-show-visibility" data-step=2>
+            <p class="aligncenter">BAR</p>
+          </li>
+          <li class="animate-show-visibility" data-step=3>
+            <p class="aligncenter">BAZ</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <span data-step-count=3></span>
+      <span class="background"></span>
+      <header>
+        <h1 class="aligncenter">Hide animation with keep position</h1>
+      </header>
+      <div class="wrap">
+        <ul class="flexblock">
+          <li class="animate-hide-visibility" data-step=1>
+            <p class="aligncenter">FOO</p>
+          </li>
+          <li class="animate-hide-visibility" data-step=2>
+            <p class="aligncenter">BAR</p>
+          </li>
+          <li class="animate-hide-visibility" data-step=3>
+            <p class="aligncenter">BAZ</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <span data-step-count=4></span>
+      <span class="background"></span>
+      <header>
+        <h1 class="aligncenter">Move element</h1>
+      </header>
+      <div class="wrap">
+        <div class="example-block red go-right" data-step=1></div>
+        <div class="example-block green go-left" data-step=2></div>
+        <div class="example-block blue go-bottom" data-step=3></div>
+        <div class="example-block purple go-top" data-step=4></div>
+      </div>
+    </section>
+
+    <section>
+      <span data-step-count=3></span>
+      <span class="background"></span>
+      <header>
+        <h1 class="aligncenter">Start animation</h1>
+      </header>
+      <div class="wrap">
+        <div class="example-block red aligncenter circular" data-step=1></div>
+        <div class="example-block green aligncenter circular" data-step=2></div>
+        <div class="example-block blue aligncenter circular" data-step=3></div>
+      </div>
+    </section>
+
+  </article>
+</main>
+
+<script src="./assets/js/webslides.min.js"></script>
+<script src="./assets/js/webslides-animation.js"></script>
+<script>
+  window.ws = new WebSlides();
+  addWebSlideAnimation(window.ws);
+</script>
+<script defer src="./assets/js/svg-icons.js"></script>
+
+</body>
+
+</html>
