@@ -1,16 +1,18 @@
 # WebSlidesAnimation: Animation without page transition
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT)
+[![Release](https://img.shields.io/github/release/iwamatsu0430/WebSlidesAnimation.svg)](https://github.com/iwamatsu0430/WebSlidesAnimation/releases/latest)
+[![npm version](https://badge.fury.io/js/webslides-animation.svg)](https://badge.fury.io/js/webslides-animation)
 
 This is Plug-in for WebSlides. This plug-in adds slide animation without page transition.
 
 ![DEMO](demo.gif)
 
-TODO: Add example slides link
+[DEMO Slide](https://iwamatsu0430.github.io/WebSlidesAnimation/example/)
 
 # Download
 
-TODO: Add download link.
+[v1.0.0](https://github.com/iwamatsu0430/WebSlidesAnimation/releases/download/1.0.0/webslides-animation.js)
 
 # Usage
 
