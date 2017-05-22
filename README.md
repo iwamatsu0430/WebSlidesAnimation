@@ -3,6 +3,7 @@
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT)
 [![Release](https://img.shields.io/github/release/iwamatsu0430/WebSlidesAnimation.svg)](https://github.com/iwamatsu0430/WebSlidesAnimation/releases/latest)
 [![npm version](https://badge.fury.io/js/webslides-animation.svg)](https://badge.fury.io/js/webslides-animation)
+[![wercker status](https://app.wercker.com/status/b46bf7c99fb9ddb1eb260f419b4adc4f/s/master "wercker status")](https://app.wercker.com/project/byKey/b46bf7c99fb9ddb1eb260f419b4adc4f)
 
 This is Plug-in for WebSlides. This plug-in adds slide animation without page transition.
 
