@@ -1,6 +1,6 @@
 {
   "name": "webslides-animation",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Plug-in for WebSlides. This plug-in adds slide animation without page transition.",
   "repository": {
     "type": "git",
@@ -13,5 +13,12 @@
     "css"
   ],
   "author": "iwamatsu0430",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "mocha": "^3.4.1",
+    "jsdom": "^10.1.0 "
+  }
 }

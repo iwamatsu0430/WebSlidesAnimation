@@ -1,92 +1,112 @@
-const addWebSlideAnimation = function(ws) {
+const WebSlidesAnimation = function(ws) {
 
-  const goNextOrigin = ws.goNext;
+  this.goNextOrigin = ws.goNext;
 
-  const eventNames = {
+  this.eventNames = {
     slideChange: 'ws:slide-change',
     goNextStep: 'ws:slide-go-next-step',
     resetStep: 'ws:slide-reset'
   };
 
-  const classNames = {
+  this.classNames = {
     animated: 'animated'
   };
 
-  const attributeNames = {
+  this.attributeNames = {
     maxStep: 'data-step-count',
     currentStep: 'data-current',
     step: 'data-step'
   };
 
-  const getTargetSection = function() {
-    return document.querySelector('#section-' + (ws.currentSlideI_ + 1));
+  this.init = function() {
+    ws.el.addEventListener(this.eventNames.slideChange, this.onSlideChange.bind(this));
+    ws.el.addEventListener(this.eventNames.resetStep, this.onResetStep.bind(this));
+    this.onSlideChange();
   };
 
-  const resetCurrentSlide = function() {
-    ws.goNext = goNextOrigin;
-    ws.el.dispatchEvent(new Event(eventNames.resetStep));
-  };
-
-  const findStepInfo = function(targetSection) {
-    const infoElement = targetSection.querySelector('*[' + attributeNames.maxStep + ']');
-    return {
-      getMaxStep: function() {
-        return infoElement && infoElement.hasAttribute(attributeNames.maxStep) ? Number(infoElement.getAttribute(attributeNames.maxStep)) : 0;
-      },
-      getCurrentStep: function() {
-        return infoElement && infoElement.hasAttribute(attributeNames.currentStep) ? Number(infoElement.getAttribute(attributeNames.currentStep)) : 0;
-      },
-      setCurrentStep: function(nextStep) {
-        if (infoElement) {
-          infoElement.setAttribute(attributeNames.currentStep, nextStep);
-        }
-      }
-    };
+  this.createEvent = function(eventName) {
+    return new Event(eventName);
   }
 
-  const onSlideChange = function() {
-    resetCurrentSlide();
-    const targetSection = getTargetSection();
-    const stepInfo = findStepInfo(targetSection);
-    if (stepInfo.getMaxStep() > 0) ws.goNext = overrideGoNext(targetSection);
+  this.createCustomEvent = function(eventName, detail) {
+    return new CustomEvent(eventName, {detail: detail})
+  }
+
+  this.getTargetSection = function(parent) {
+    if (!parent) {
+      parent = document;
+    }
+    return parent.querySelector('#section-' + (ws.currentSlideI_ + 1));
   };
 
-  const overrideGoNext = function(targetSection) {
+  this.resetCurrentSlide = function() {
+    ws.goNext = this.goNextOrigin;
+    ws.el.dispatchEvent(this.createEvent(this.eventNames.resetStep));
+  };
+
+  this.findStepInfo = function(targetSection) {
+    const infoElement = targetSection ? targetSection.querySelector('*[' + this.attributeNames.maxStep + ']') : null;
+    return {
+      getMaxStep: function() {
+        return infoElement && infoElement.hasAttribute(this.attributeNames.maxStep) ? Number(infoElement.getAttribute(this.attributeNames.maxStep)) : 0;
+      }.bind(this),
+      getCurrentStep: function() {
+        return infoElement && infoElement.hasAttribute(this.attributeNames.currentStep) ? Number(infoElement.getAttribute(this.attributeNames.currentStep)) : 0;
+      }.bind(this),
+      setCurrentStep: function(nextStep) {
+        if (infoElement) {
+          infoElement.setAttribute(this.attributeNames.currentStep, nextStep);
+        }
+      }.bind(this)
+    };
+  };
+
+  this.onSlideChange = function() {
+    this.resetCurrentSlide();
+    const targetSection = this.getTargetSection();
+    const stepInfo = this.findStepInfo(targetSection);
+    if (stepInfo.getMaxStep() > 0) ws.goNext = this.overrideGoNext(targetSection).bind(this);
+  };
+
+  this.overrideGoNext = function(targetSection) {
     return function() {
-      const stepInfo = findStepInfo(targetSection);
+      const stepInfo = this.findStepInfo(targetSection);
       const maxStep = stepInfo.getMaxStep();
       const nextStep = stepInfo.getCurrentStep() + 1;
 
-      ws.el.dispatchEvent(new CustomEvent(eventNames.goNextStep, {detail: {
+      ws.el.dispatchEvent(this.createCustomEvent(this.eventNames.goNextStep, {
         targetSection: targetSection,
         currentStep: nextStep,
         maxStep: maxStep
-      }}));
+      }));
       targetSection
-        .querySelectorAll('*[' + attributeNames.step + '="' + nextStep + '"]')
+        .querySelectorAll('*[' + this.attributeNames.step + '="' + nextStep + '"]')
         .forEach(function(target) {
-          target.classList.add(classNames.animated);
-        });
+          target.classList.add(this.classNames.animated);
+        }.bind(this));
       if (nextStep >= maxStep) {
-        ws.goNext = goNextOrigin;
+        ws.goNext = this.goNextOrigin;
       }
       stepInfo.setCurrentStep(nextStep);
-    };
-  }
-
-  const onResetStep = function(e) {
-    const targetSection = getTargetSection();
-    const stepInfo = findStepInfo(targetSection);
-    stepInfo.setCurrentStep(0);
-    targetSection
-      .querySelectorAll('*[' + attributeNames.step + '].' + classNames.animated)
-      .forEach(function(target) {
-        target.classList.remove(classNames.animated);
-      });
+    }.bind(this);
   };
 
-  ws.el.addEventListener(eventNames.slideChange, onSlideChange);
-  ws.el.addEventListener(eventNames.resetStep, onResetStep);
+  this.onResetStep = function(e) {
+    const targetSection = this.getTargetSection();
+    const stepInfo = this.findStepInfo(targetSection);
+    stepInfo.setCurrentStep(0);
+    targetSection
+      .querySelectorAll('*[' + this.attributeNames.step + '].' + this.classNames.animated)
+      .forEach(function(target) {
+        target.classList.remove(this.classNames.animated);
+      }.bind(this));
+  };
 
-  onSlideChange();
+  if (typeof Event !== 'undefined' && typeof CustomEvent !== 'undefined') {
+    this.init();
+  }
 };
+
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+  module.exports = WebSlidesAnimation;
+}
