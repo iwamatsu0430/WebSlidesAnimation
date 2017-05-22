@@ -12,7 +12,7 @@ This is Plug-in for WebSlides. This plug-in adds slide animation without page tr
 
 # Download
 
-[v1.0.0](https://github.com/iwamatsu0430/WebSlidesAnimation/releases/download/1.0.0/webslides-animation.js)
+[v1.0.1](https://github.com/iwamatsu0430/WebSlidesAnimation/releases/download/1.0.1/webslides-animation.js)
 
 # Usage
 
@@ -23,8 +23,58 @@ Add script after webslides.js and call `addWebSlideAnimation`
 <script src="./webslides-animation.js"></script>
 <script>
   window.ws = new WebSlides();
-  addWebSlideAnimation(window.ws);
+  new WebSlidesAnimation(window.ws);
 </script>
+```
+
+Add animate stylesheet. use transition or animate;
+
+```
+.animate-show {
+  display: none !important;
+}
+.animate-show.animated {
+  display: inherit !important;
+}
+
+.example-block {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  left: 0;
+  transition: all 500ms ease;
+}
+.example-block.animate {
+  left: calc(100% - 100px);
+}
+```
+
+In your slide, Add step controller tag.
+
+```
+<section>
+  <span data-step-count=3></span>
+  <span class="background"></span>
+  <header>
+    <h1 class="aligncenter">Title</h1>
+  </header>
+  <div class="wrap">
+    <ul class="flexblock">
+      <!-- animate first step -->
+      <li class="animate-show" data-step=1>
+        <p class="aligncenter">FOO</p>
+      </li>
+      <!-- animate second step -->
+      <li class="animate-show" data-step=2>
+        <p class="aligncenter">BAR</p>
+      </li>
+      <!-- animate third step -->
+      <li class="animate-show" data-step=3>
+        <p class="aligncenter">BAZ</p>
+      </li>
+    </ul>
+  </div>
+</section>
 ```
 
 # Credit
