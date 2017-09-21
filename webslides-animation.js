@@ -29,17 +29,18 @@ const WebSlidesAnimation = function(ws) {
   }
 
   this.createCustomEvent = function(eventName, detail) {
-    return new CustomEvent(eventName, {detail: detail})
+    return new CustomEvent(eventName, {detail: detail});
   }
 
-  this.getTargetSection = function(parent) {
-    if (!parent) {
-      parent = document;
-    }
-    return parent.querySelector('#section-' + (ws.currentSlideI_ + 1));
+  this.getDocument = function() {
+    return (this.document === undefined) ? document : this.document;
+  }
+
+  this.getTargetSection = function() {
+    return this.getDocument().querySelector('#section-' + (ws.currentSlideI_ + 1));
   };
 
-  this.resetCurrentSlide = function() {
+  this.resetSlides = function() {
     ws.goNext = this.goNextOrigin;
     ws.el.dispatchEvent(this.createEvent(this.eventNames.resetStep));
   };
@@ -62,7 +63,7 @@ const WebSlidesAnimation = function(ws) {
   };
 
   this.onSlideChange = function() {
-    this.resetCurrentSlide();
+    this.resetSlides();
     const targetSection = this.getTargetSection();
     const stepInfo = this.findStepInfo(targetSection);
     if (stepInfo.getMaxStep() > 0) ws.goNext = this.overrideGoNext(targetSection).bind(this);
@@ -95,7 +96,7 @@ const WebSlidesAnimation = function(ws) {
     const targetSection = this.getTargetSection();
     const stepInfo = this.findStepInfo(targetSection);
     stepInfo.setCurrentStep(0);
-    targetSection
+    this.getDocument()
       .querySelectorAll('*[' + this.attributeNames.step + '].' + this.classNames.animated)
       .forEach(function(target) {
         target.classList.remove(this.classNames.animated);

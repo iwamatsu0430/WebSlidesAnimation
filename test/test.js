@@ -4,7 +4,7 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const { document } = (new JSDOM(`...`)).window;
 
-const createWebSlidesAnimation = () => {
+const createWebSlidesAnimation = (frag) => {
   const wsa = new WebSlidesAnimation({
     goNext: () => {},
     el: {
@@ -15,33 +15,33 @@ const createWebSlidesAnimation = () => {
   });
   wsa.createEvent = () => {};
   wsa.createCustomEvent = () => {};
+  wsa.document = frag;
   return wsa;
 };
 
 describe('#getTargetSection', () => {
 
-  const wsa = createWebSlidesAnimation();
-
   it('find section by id', () => {
     const frag = JSDOM.fragment(`<section id="section-1"></secion>`);
-    const targetSection = wsa.getTargetSection(frag);
+    const wsa = createWebSlidesAnimation(frag);
+    const targetSection = wsa.getTargetSection();
     assert.equal(targetSection.id, 'section-1');
   });
 
   it('not found section by id', () => {
     const frag = JSDOM.fragment(`<section id="section-2"></secion>`);
-    const targetSection = wsa.getTargetSection(frag);
+    const wsa = createWebSlidesAnimation(frag);
+    const targetSection = wsa.getTargetSection();
     assert.equal(targetSection, null);
   });
 });
 
 describe('#findStepInfo', () => {
 
-  const wsa = createWebSlidesAnimation();
-
   it('return info (has step count)', () => {
     const frag = JSDOM.fragment(`<section id="section-1"><span data-step-count=3></span></secion>`);
-    const targetSection = wsa.getTargetSection(frag);
+    const wsa = createWebSlidesAnimation(frag);
+    const targetSection = wsa.getTargetSection();
     const stepInfo = wsa.findStepInfo(targetSection);
     assert.equal(stepInfo.getMaxStep(), 3);
     assert.equal(stepInfo.getCurrentStep(), 0);
@@ -49,7 +49,8 @@ describe('#findStepInfo', () => {
 
   it('return info (has step count, current step)', () => {
     const frag = JSDOM.fragment(`<section id="section-1"><span data-step-count=3 data-current=2></span></secion>`);
-    const targetSection = wsa.getTargetSection(frag);
+    const wsa = createWebSlidesAnimation(frag);
+    const targetSection = wsa.getTargetSection();
     const stepInfo = wsa.findStepInfo(targetSection);
     assert.equal(stepInfo.getMaxStep(), 3);
     assert.equal(stepInfo.getCurrentStep(), 2);
@@ -57,7 +58,8 @@ describe('#findStepInfo', () => {
 
   it('return info (not have step count)', () => {
     const frag = JSDOM.fragment(`<section id="section-1"></secion>`);
-    const targetSection = wsa.getTargetSection(frag);
+    const wsa = createWebSlidesAnimation(frag);
+    const targetSection = wsa.getTargetSection();
     const stepInfo = wsa.findStepInfo(targetSection);
     assert.equal(stepInfo.getMaxStep(), 0);
     assert.equal(stepInfo.getCurrentStep(), 0);
@@ -65,7 +67,8 @@ describe('#findStepInfo', () => {
 
   it('return info (not exists section)', () => {
     const frag = JSDOM.fragment(``);
-    const targetSection = wsa.getTargetSection(frag);
+    const wsa = createWebSlidesAnimation(frag);
+    const targetSection = wsa.getTargetSection();
     const stepInfo = wsa.findStepInfo(targetSection);
     assert.equal(stepInfo.getMaxStep(), 0);
     assert.equal(stepInfo.getCurrentStep(), 0);
@@ -108,14 +111,13 @@ describe('#onSlideChange', () => {
 
 describe('#overrideGoNext', () => {
 
-  const wsa = createWebSlidesAnimation();
-
   const frag = JSDOM.fragment(`
 <section id="section-1">
 <div data-step=1></div>
 <p class="foo" data-step=2></p>
 </secion>`);
-  const targetSection = wsa.getTargetSection(frag);
+  const wsa = createWebSlidesAnimation(frag);
+  const targetSection = wsa.getTargetSection();
   wsa.getTargetSection = () => {
     return targetSection;
   };
@@ -131,14 +133,13 @@ describe('#overrideGoNext', () => {
 
 describe('#onResetStep', () => {
 
-  const wsa = createWebSlidesAnimation();
-
   const frag = JSDOM.fragment(`
 <section id="section-1">
 <div class="animated" data-step=1></div>
 <p class="animated foo" data-step=2></p>
 </secion>`);
-  const targetSection = wsa.getTargetSection(frag);
+  const wsa = createWebSlidesAnimation(frag);
+  const targetSection = wsa.getTargetSection();
   wsa.getTargetSection = () => {
     return targetSection;
   };
