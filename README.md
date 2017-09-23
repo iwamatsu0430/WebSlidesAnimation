@@ -13,7 +13,7 @@ This is Plug-in for [WebSlides](https://webslides.tv/). This plug-in adds slide 
 
 # Download
 
-[v1.0.1](https://github.com/iwamatsu0430/WebSlidesAnimation/releases/download/1.0.1/webslides-animation.js)
+[v1.0.2](https://github.com/iwamatsu0430/WebSlidesAnimation/releases/download/1.0.2/webslides-animation.js)
 
 # Usage
 
